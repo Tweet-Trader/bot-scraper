@@ -20,15 +20,14 @@ const queueEvents = new QueueEvents("pump-it-dump-it", { connection });
 
 async function getMentions(req: Request, res: Response) {
   const lastTweet = (await connection.get("lastTweet")) || undefined;
-  console.log("last tweet: ", lastTweet);
 
-  // const mentions = await twitterClient.v2.search('@puterbooter ("pump it $" OR "dump it $")', { max_results: 100 })
-  const mentions = await twitterClient.v2.search('@satsdart', { max_results: 10, since_id: lastTweet })
-  console.log("mentions: ", mentions.data)
+  const mentions = await twitterClient.v2.search('@puterbooter ("pump it $" OR "dump it $")', {
+    max_results: 100,
+    since_id: lastTweet,
+  });
 
   if (mentions.data.meta.newest_id) await connection.set("lastTweet", mentions.data.meta.newest_id);
   if (mentions.data.meta.result_count > 0) {
-    console.log("mentions data data: ", mentions.data.data);
     const tweetJobs = mentions.data.data.map((tweet) => ({
       name: "pump-it-dump-it",
       data: tweet,
