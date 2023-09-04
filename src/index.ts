@@ -13,12 +13,7 @@ app.use(express.json());
 app.use(express.raw({ type: "application/vnd.custom-type" }));
 app.use(express.text({ type: "text/html" }));
 
-const connection = new IORedis({
-  port: 6379,
-  host: process.env.REDIS_HOST,
-  password: process.env.REDIS_PASSWORD,
-  maxRetriesPerRequest: null,
-});
+const connection = new IORedis(process.env.REDIS_URL!);
 
 const queue = new Queue("pump-it-dump-it", { connection });
 const queueEvents = new QueueEvents("pump-it-dump-it", { connection });
