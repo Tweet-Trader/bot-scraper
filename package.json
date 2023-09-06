@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "bullmq": "^4.8.0",
+    "canvas": "^2.11.2",
     "dotenv": "^16.3.1",
     "express": "^4.17.1",
     "ioredis": "^5.3.2",
-    "twitter-api-v2": "^1.15.1"
+    "twitter-api-v2": "^1.15.1",
+    "viem": "^1.10.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.12",
